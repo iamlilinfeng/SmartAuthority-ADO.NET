@@ -5,3 +5,4 @@
     <add name="Conn" connectionString="server=localhost;database=SmartAuthority;uid=admin;pwd=111111;" providerName="System.Data.SqlClient" />
   </connectionStrings>
 4.删除《安装说明.txt》与《init.sql》
+5.初始登录密码：111111
