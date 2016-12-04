@@ -1,0 +1,121 @@
+﻿@model PagedList<AuthorityRole>
+@using Webdiyer.WebControls.Mvc;
+@{
+    int i = 1;
+}
+<!-- Content Header (Page header) -->
+<section class="content-header">
+    <h1>
+        角色管理
+    </h1>
+    <ol class="breadcrumb">
+        <li><i class="fa fa-dashboard"></i>&nbsp;首页</li>
+        <li>系统管理</li>
+        <li class="active">角色管理</li>
+    </ol>
+</section>
+<!-- Main content -->
+<section class="content">
+    <!-- Your Page Content Here -->
+    <div class="row">
+        <div class="col-md-12">
+            <!-- Horizontal Form -->
+            <div class="box box-info">
+                <div class="box-header with-border">
+                    <h3 class="box-title">查询条件</h3>
+                </div>
+                <!-- /.box-header -->
+                @using (Html.BeginForm("RoleList", "Authority", FormMethod.Get, new { @id = "searchForm" }))
+                {
+                <!-- form start -->
+                    <div class="box-body">
+                        <div class="row">
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label class="col-sm-3 control-label" for="name">名称</label>
+                                    <div class="col-sm-9">
+                                        @Html.TextBox("Name", (string)ViewBag.RoleName, new { @id = "name", @class = "form-control", @placeholder = "输入要搜索的角色名" })
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-8">
+                                <a class="btn btn-default pull-right authority-roleedit page-role" href="/Authority/RoleEdit">新增</a>
+                                <input class="btn btn-info" type="submit" value="查询" />
+                            </div>
+                        </div>
+                    </div>
+                }
+                <!-- /.box-body -->
+            </div>
+            <!-- /.box -->
+        </div>
+        <!--/.col (right) -->
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="box">
+                <div class="box-header with-border">
+                    <h3 class="box-title">角色列表</h3>
+                </div>
+                <!-- /.box-header -->
+                <div class="box-body">
+                    <table class="table table-bordered table-hover">
+                        <tbody>
+                            <tr>
+                                <th class="table-no">编号</th>
+                                <th>姓名</th>
+                                <th>描述</th>
+                                <th>角色用户</th>
+                                <th class="table-operate-1">操作</th>
+                            </tr>
+                            @foreach (var content in Model)
+                            {
+                                <tr>
+                                    <td>
+                                        @((i++) + Model.PageSize * (Model.CurrentPageIndex - 1))
+                                    </td>
+                                    <td>
+                                        @content.Name
+                                    </td>
+                                    <td>
+                                        @content.Describe
+                                    </td>
+                                    <td>
+                                        <a class="authority-roleaccount page-role" href="/Authority/RoleAccount?RoleId=@content.AuthorityRoleId">分配</a>
+                                    </td>
+                                    <td>
+                                        <a class="authority-roleedit page-role" href="/Authority/RoleEdit?RoleId=@content.AuthorityRoleId">修改</a>
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+                <!-- /.box-body -->
+                <div class="box-footer clearfix">
+                    <div class="pull-right">
+                        @Html.Pager(Model, new PagerOptions
+                   {
+                       PageIndexParameterName = "pagerid",
+                       AutoHide = false,
+                       ContainerTagName = "ul",
+                       FirstPageText = "首页",
+                       PrevPageText = "上页",
+                       NextPageText = "下页",
+                       LastPageText = "尾页",
+                       CssClass = "pagination",
+                       CurrentPagerItemTemplate = "<li class=\"active\"><a href=\"#\">{0}</a></li>",
+                       DisabledPagerItemTemplate = "<li class=\"disabled\"><a>{0}</a></li>",
+                       PagerItemTemplate = "<li>{0}</li>"
+                   })
+                    </div>
+                </div>
+            </div>
+            <!-- /.box -->
+        </div>
+        <!-- /.col -->
+    </div>
+    <div>
+    </div>
+</section>
+<!-- /.content -->

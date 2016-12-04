@@ -1,0 +1,7 @@
+1.创建任意名称SqlServer数据库
+2.在该数据库下执行init.sql
+3.修改配置文件Web.config数据库连接字符串
+  <connectionStrings>
+    <add name="Conn" connectionString="server=localhost;database=SmartAuthority;uid=admin;pwd=111111;" providerName="System.Data.SqlClient" />
+  </connectionStrings>
+4.删除《安装说明.txt》与《init.sql》
